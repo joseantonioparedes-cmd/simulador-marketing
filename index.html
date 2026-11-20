@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketing Cloud Simulator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- PANTALLA 1: MENÚ PRINCIPAL -->
+    <div class="card" id="menu-screen">
+      <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+        <select id="lang-selector-menu" class="btn btn-reset" onchange="changeLanguage(this.value)" style="padding: 8px 12px; font-weight: 700;">
+          <option value="ENG">🇺🇸 English</option>
+          <option value="ESP">🇲🇽 Español</option>
+          <option value="MIRROR">🌐 Bilingual (ENG / ESP)</option>
+        </select>
+      </div>
+
+      <h1 class="menu-title">Marketing Cloud Simulator</h1>
+      <p class="menu-subtitle">Select a section to study or take a full exam simulation.</p>
+      
+      <div class="block-grid" id="block-cards-container"></div>
+      
+      <hr style="margin: 25px 0; border: none; border-top: 1px solid var(--border);">
+      
+      <!-- BOTONES DE EXAMEN GLOBAL -->
+      <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <button class="btn btn-shuffle" style="flex: 1; font-size: 1.05rem; padding: 16px; border-radius: 10px;" onclick="startFullStudyMode()">
+          📖 Full Study Mode (All Questions)
+        </button>
+        <button class="btn btn-exam" style="flex: 1; font-size: 1.05rem; padding: 16px; border-radius: 10px;" onclick="startExamMode()">
+          📝 Full Exam Simulator
+        </button>
+      </div>
+    </div>
+
+    <!-- PANTALLA 2: VISTA DE ESTUDIO -->
+    <div class="card" id="quiz-screen" style="display: none;">
+      <div class="block-header">
+        <h2 id="block-title">Section</h2>
+        <div class="block-header-actions" style="flex-wrap: wrap;">
+          <select id="lang-selector-quiz" class="btn btn-reset" onchange="changeLanguage(this.value)" style="padding: 8px 12px; font-weight: 700;">
+            <option value="ENG">🇺🇸 ENG</option>
+            <option value="ESP">🇲🇽 ESP</option>
+            <option value="MIRROR">🌐 ENG / ESP</option>
+          </select>
+          <label class="toggle-switch-container">
+            <input type="checkbox" id="toggle-wrong-checkbox" onchange="toggleShowWrongOnly()">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Incorrect Only</span>
+          </label>
+          <button class="btn btn-check" style="margin-top:0;" onclick="revealAllAnswers()">👁️ Show Answers</button>
+          <button class="btn btn-shuffle" onclick="shuffleCurrentBlock()">🔀 Shuffle</button>
+          <button class="btn btn-secondary" onclick="returnToMenu()">← Menu</button>
+        </div>
+      </div>
+      
+      <div id="questions-list-container"></div>
+    </div>
+
+    <!-- PANTALLA 3: RESULTADOS DE EXAMEN -->
+    <div class="card" id="results-screen" style="display: none;">
+      <h2 style="text-align: center; margin-bottom: 8px; color: var(--primary);">Exam Results</h2>
+      <p style="text-align: center; font-size: 1.4rem; font-weight: bold; margin-bottom: 25px;">
+        Score: <span id="final-score" style="color: var(--primary);">0</span> / <span id="total-q">0</span>
+      </p>
+      <div id="review-container"></div>
+      <button class="btn btn-exam" onclick="returnToMenu()">Back to Main Menu</button>
+    </div>
+
+  </div>
+
+  <!-- POPUP MODAL -->
+  <div class="modal-overlay" id="custom-modal">
+    <div class="modal-card">
+      <div class="modal-icon">⚠️</div>
+      <div class="modal-message" id="modal-msg">Notice</div>
+      <button class="btn" onclick="closeModal()">Understood</button>
+    </div>
+  </div>
+
+  <!-- ARCHIVOS DE PREGUNTAS -->
+  <script src="questionsENG.js"></script>
+  <script src="questionsESP.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
